@@ -1,1 +1,1 @@
-# QuizForge-AI-Powered-Quiz-Exam-Preparation-Platform-
+# QuizForge:AI-Powered Quiz & Exam Preparation Platform 
