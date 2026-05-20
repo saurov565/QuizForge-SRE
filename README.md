@@ -1,130 +1,99 @@
 # 🧠 QuizForge — AI-Powered Quiz & Exam Preparation Platform
 
-> **Turning study materials into smart quizzes — instantly.**
-
-QuizForge is a web-based educational platform designed for teachers and students in Bangladesh. Teachers upload their own notes or PDFs, and the AI engine automatically generates multiple-choice, true/false, and short-answer questions from that content. Students take the quizzes, receive instant feedback, and track their performance over time — all in one place, in both **English and Bengali**.
-
-This repository contains the **Software Requirements Engineering (SRE) document** for QuizForge, developed as a course project at **American International University-Bangladesh (AIUB)**, Department of Computer Science, Spring 2025–26.
+> A Software Requirements Engineering (SRE) project proposing an AI-driven quiz and exam preparation platform for students and teachers in Bangladesh.
 
 ---
 
-## 📋 Table of Contents
+## 📌 Project Overview
 
-- [Motivation](#-motivation)
-- [Key Features](#-key-features)
-- [System Architecture](#-system-architecture)
-- [Tech Stack](#-tech-stack)
-- [Getting Started](#-getting-started)
-- [Usage](#-usage)
-- [Project Structure](#-project-structure)
-- [Team](#-team)
+**QuizForge** is a fully documented software concept developed as part of the *Software Requirement Engineering* course at **American International University-Bangladesh (AIUB)**
+
+This repository contains the **complete SRE documentation** for QuizForge — a proposed web platform where teachers upload study materials (PDFs, DOCX, plain text) and an AI engine automatically generates quizzes from them. Students then take those quizzes, receive instant feedback, and track their progress over time — all in one place, in both **English and Bengali**.
+
+> **This is a documentation-based project.** It covers the full software engineering lifecycle from problem identification through requirements, system design, UML modeling, business planning, and financial analysis.
 
 ---
 
-## 💡 Motivation
+## 👥 Team
 
-Over **40 million students** are enrolled in Bangladeshi educational institutions (BANBEIS, 2023), yet fewer than **5% have access to any AI-assisted or adaptive learning tool**. Traditional teaching relies almost entirely on manual lectures and printed tests, leaving students with no reliable way to self-assess before exams.
-
-Meanwhile, teachers spend **5–8 hours per week** just writing quiz questions — time that could go toward teaching.
-
-QuizForge was designed to solve both problems at once.
-
----
-
-## ✨ Key Features
-
-- **AI-Powered Quiz Generation** — Upload a PDF, DOCX, or plain-text file; the AI engine extracts key concepts and generates MCQ, True/False, and short-answer questions automatically.
-- **Bilingual Support** — Full support for question generation and platform navigation in **English and Bengali**.
-- **Role-Based Access** — Three distinct roles: `Admin`, `Teacher`, and `Student`, each with tailored dashboards and permissions.
-- **Quiz Management** — Teachers can set time limits, difficulty levels, passing marks, quiz availability windows, and question shuffling.
-- **Student Quiz Experience** — Countdown timer, immediate per-question feedback (optional), and a full answer-review mode after submission.
-- **Performance Analytics** — Students see score trends and weak topics; teachers get class-level stats and exportable PDF/CSV reports.
-- **Subscription & Payment** — Freemium model with Pro Teacher and Institution plans; payments via **bKash**, **Nagad**, and credit/debit card.
-- **Secure Authentication** — JWT-based sessions, bcrypt password hashing, and email OTP for password recovery.
-
----
-
-## 🏗️ System Architecture
-
-QuizForge follows a three-tier architecture with an external AI engine integration:
-
-```
-┌─────────────────────────────────────────────────┐
-│                  Client Layer                   │
-│         React.js + Tailwind CSS (Web)           │
-└────────────────────┬────────────────────────────┘
-                     │ REST API (HTTPS)
-┌────────────────────▼────────────────────────────┐
-│                 Application Layer               │
-│           Node.js + Express.js (API)            │
-│   ┌───────────────────────────────────────┐     │
-│   │  Auth │ Quiz CRUD │ Analytics │ Subs  │     │
-│   └───────────────────────────────────────┘     │
-└────┬──────────────────────────────┬─────────────┘
-     │                              │
-┌────▼─────────┐           ┌────────▼──────────┐
-│  PostgreSQL  │           │  External Services│
-│  + Redis     │           │  OpenAI GPT API   │
-│  (DB/Cache)  │           │  bKash / SSLCommerz│
-│  AWS S3      │           │  HuggingFace NLP  │
-└──────────────┘           └───────────────────┘
-```
-
-### UML Diagrams (included in SRE document)
-
-| Diagram | Description |
+| Name | Student ID |
 |---|---|
-| **Use Case Diagram** | Actors: Admin, Teacher, Student, AI Engine (external), Payment GW (external) |
-| **Activity Diagram** | Full teacher quiz-creation flow from login → AI generation → publish → student notification |
-| **Class Diagram** | 8 core classes: `User`, `Teacher`, `Student`, `Quiz`, `Question`, `QuizAttempt`, `StudyMaterial`, `Subscription` |
+| Abul Bashar Saurov | 22-48823-3 |
+| Farhan Sadik Nabil | 22-48840-3 |
+| Arpita Chakraborty | 22-48845-3 |
+| Aminul Islam Dipu | 22-48847-3 |
 
 ---
 
-## 🛠️ Tech Stack
+## 📂 Document Contents
 
-| Layer | Technology | Purpose |
-|---|---|---|
-| **Frontend** | React.js + Tailwind CSS | Responsive, component-based UI |
-| **Backend** | Node.js + Express.js | Scalable REST API |
-| **Database** | PostgreSQL + Redis | Relational data + session caching |
-| **File Storage** | AWS S3 / Cloudflare R2 | Secure PDF/DOCX storage |
-| **Hosting** | AWS EC2 / DigitalOcean | Cloud deployment |
-| **AI Engine** | OpenAI GPT-4 API / HuggingFace | NLP-based question generation |
-| **Payments** | bKash PGW + SSLCommerz | Bangladesh-local payment support |
-| **Auth** | JWT + bcrypt | Secure session and password management |
+The SRE document (`SRE_Project.pdf`) is structured across 7 major sections:
 
----
-
-## 📖 Usage
-
-### For Teachers
-
-1. **Register** as a Teacher and log in.
-2. Navigate to **"Upload Material"** and upload a PDF or DOCX file (e.g., your lecture notes).
-3. Click **"Generate Quiz"** — the AI engine extracts concepts and creates question candidates.
-4. **Review and edit** the generated questions, then configure quiz settings (time limit, difficulty, availability window).
-5. **Publish** and assign the quiz to your student group.
-6. View class-wide results in the **Analytics Dashboard** and export reports as PDF/CSV.
-
-### For Students
-
-1. **Register** as a Student and log in.
-2. Browse available quizzes by subject or teacher from the **Quiz Library**.
-3. Click **"Start Quiz"** — a countdown timer begins.
-4. Submit answers and receive **instant feedback** with explanations for incorrect answers.
-5. Track your score trends, weak topics, and time-spent history in the **Performance Dashboard**.
-
-### For Admins
-
-1. Log in with admin credentials.
-2. Manage all users (create, update, deactivate) from the **User Management** panel.
-3. View platform-wide reports and manage subscription plans.
-
-
-## 📄 License
-
-This project is submitted as an academic coursework project at AIUB. All rights reserved by the authors.
+| Section | What It Covers |
+|---|---|
+| **1. Problem Domain** | Background on Bangladesh's education gap, the solution concept, and comparison with existing platforms (Quizlet, Kahoot, Google Forms, Coursera) |
+| **2. Solution Description** | Full system feature list with functional requirements (FR-01 to FR-23), quality attributes, and three UML diagrams |
+| **3. Social Impact** | Analysis of QuizForge's potential impact on education equity, teacher workload, digital literacy, and the environment |
+| **4. Development Plan** | Agile/Scrum SDLC methodology, 4-phase development roadmap, technology stack, Gantt chart, and team roles |
+| **5. Marketing Plan** | Short-term (0–6 months) and long-term (6–24 months) marketing strategies targeting students, teachers, and institutions |
+| **6. Cost & Profit Analysis** | Itemized development and marketing costs, revenue model (Free / Pro / Institution tiers), 3-year revenue projections, and profit margin analysis |
+| **7. References** | Citations from BANBEIS, UNESCO, OpenAI, SSLCommerz, bKash, and standard SRE literature |
 
 ---
 
-<p align="center">Built with ❤️ for Bangladesh's 40 million students.</p>
+## ✨ Proposed Key Features
+
+- **AI Quiz Generation** — Teachers upload a PDF or DOCX; the NLP engine extracts key concepts and generates MCQ, True/False, and short-answer questions automatically.
+- **Bilingual Platform** — Full support for both **English and Bengali**, making it accessible to a wider Bangladeshi audience.
+- **Role-Based System** — Three roles: `Admin`, `Teacher`, and `Student`, each with dedicated capabilities.
+- **Quiz Management** — Configurable time limits, difficulty levels, passing marks, question shuffling, and availability windows.
+- **Instant Student Feedback** — Per-question feedback, answer explanations, and performance history.
+- **Analytics Dashboard** — Students track weak topics and score trends; teachers get class-level reports exportable as PDF/CSV.
+- **Freemium Subscription Model** — Free tier + Pro Teacher (BDT 499/mo) + Institution (BDT 4,999/mo) plans, paid via bKash, Nagad, or card.
+
+---
+
+## 🗂️ UML Diagrams (included in document)
+
+Three UML diagrams were designed to model the system:
+
+**1. Use Case Diagram**
+Identifies actors (Admin, Teacher, Student, AI Engine, Payment Gateway) and all their system interactions — from quiz generation and student tracking to subscription management.
+
+**2. Activity Diagram**
+Describes the step-by-step flow of a teacher creating an AI-generated quiz: login → upload material → AI extraction → review/edit → publish → student notification.
+
+**3. Class Diagram**
+Defines 8 core classes and their relationships:
+- `User` ← extended by `Teacher` and `Student`
+- `Quiz` contains many `Question`
+- `Student` makes many `QuizAttempt`
+- `Teacher` uploads `StudyMaterial` which generates `Question`
+- `User` has a `Subscription`
+
+---
+
+## 🛠️ Proposed Technology Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React.js + Tailwind CSS |
+| Backend | Node.js + Express.js |
+| Database | PostgreSQL + Redis |
+| File Storage | AWS S3 / Cloudflare R2 |
+| AI Engine | OpenAI GPT-4 API / HuggingFace |
+| Payment | bKash PGW + SSLCommerz |
+| Hosting | AWS EC2 / DigitalOcean |
+---
+## 📚 References
+
+Key sources used in this project:
+- Bangladesh Bureau of Educational Information and Statistics (BANBEIS), 2023
+- UNESCO — *Digital Transformation of Education in Bangladesh*, 2022
+- OpenAI GPT-4 API Documentation, 2024
+- Sommerville, I. — *Software Engineering*, 10th ed., Pearson Education
+- Ministry of ICT Bangladesh — *Digital Bangladesh Vision 2041*
+
+---
+
+<p align="center">📘 Submitted to the Department of Computer Science, AIUB — Spring 2025–26</p>
